@@ -127,13 +127,6 @@ docker compose up -d
 ```bash
 docker compose ps
 ```
-EC2のセキュリティグループでHTTP(TCP/80)のインバウンド
-通信が許可されていることを確認する。
-その後サービスの起動とWebのPORTSが
-```text
-0.0.0.0:80->80/tcp
-```
-になっているか確認
 
 ## 11.MySQLの掲示板テーブルを作成
 MySQLに入る
