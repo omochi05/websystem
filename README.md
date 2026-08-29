@@ -93,9 +93,9 @@ mkdir nginx/conf.d
 ```
 
 80番ポートでWebアクセスを受ける
-↓
+→
 /var/www/public を公開する
-↓
+→
 .phpならPHPコンテナへ処理を渡す
 
 ファイル作成
