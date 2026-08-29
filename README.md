@@ -117,7 +117,7 @@ vim Dockerfile
 mkdir public
 vim public/zenkitest.php
 ```
-中身はこちら:https://github.com/omochi05/websystem/blob/main/public/zenkitest.php
+中身はこちら→https://github.com/omochi05/websystem/blob/main/public/zenkitest.php
 
 ## 10.コンテナを起動する
 ```bash
