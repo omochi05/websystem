@@ -2,7 +2,7 @@
 $dbh = new PDO('mysql:host=mysql;dbname=example_db', 'root', '');
 
 if (isset($_POST['body'])) {
-  // POSTで送られてくるフォームパラメータ body がある場合
+  // 登校内容が送信された場合の処理
 
   $image_filename = null;
   if (isset($_FILES['image']) && !empty($_FILES['image']['tmp_name'])) {
@@ -23,26 +23,26 @@ if (isset($_POST['body'])) {
     move_uploaded_file($_FILES['image']['tmp_name'], $filepath);
   }
 
-  // insertする
+  // 投稿内容と画像ファイル名をデーターベースに保存する
   $insert_sth = $dbh->prepare("INSERT INTO bbs_entries (body, image_filename) VALUES (:body, :image_filename)");
   $insert_sth->execute([
     ':body' => $_POST['body'],
     ':image_filename' => $image_filename,
   ]);
 
-  // 処理が終わったらリダイレクトする
-  // リダイレクトしないと，リロード時にまた同じ内容でPOSTすることになる
+  // 投稿完了後に掲示板ページに戻す
+  // ページ更新による同じ投稿の再送信を防止
   header("HTTP/1.1 302 Found");
   header("Location: ./zenkitest.php");
   return;
 }
 
-// いままで保存してきたものを取得
+// 保存済みの投稿を新しい順に取得
 $select_sth = $dbh->prepare('SELECT * FROM bbs_entries ORDER BY created_at DESC');
 $select_sth->execute();
 ?>
 
-<!-- フォームのPOST先はこのファイル自身にする -->
+<!-- 入力内容をこのPHPファイルにPOST送信 -->
 <form method="POST" action="./zenkitest.php" enctype="multipart/form-data">
   <textarea name="body" required></textarea>
   <div style="margin: 1em 0;">
@@ -61,8 +61,8 @@ $select_sth->execute();
     <dd><?= $entry['created_at'] ?></dd>
     <dt>内容</dt>
     <dd>
-      <?= nl2br(htmlspecialchars($entry['body'])) // 必ず htmlspecialchars() すること ?>
-      <?php if(!empty($entry['image_filename'])): // 画像がある場合は img 要素を使って表示 ?>
+      <?= nl2br(htmlspecialchars($entry['body'])) // 投稿内容をHTMLとして解釈されないようにエスケープ ?>
+      <?php if(!empty($entry['image_filename'])): // 画像がある場合はimg要素を使って表示 ?>
       <div>
         <img src="/image/<?= $entry['image_filename'] ?>" style="max-height: 10em;">
       </div>
@@ -76,11 +76,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const imageInput = document.getElementById("imageInput");
   imageInput.addEventListener("change", () => {
     if (imageInput.files.length < 1) {
-      // 未選択の場合
+      // 画像が選択されてなければ何もしない
       return;
     }
     if (imageInput.files[0].size > 5 * 1024 * 1024) {
-      // ファイルが5MBより多い場合
+      // 画像サイズが5MGより多い場合
       alert("5MB以下のファイルを選択してください。");
       imageInput.value = "";
     }
