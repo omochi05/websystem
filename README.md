@@ -5,6 +5,7 @@
    - PHP / nginx / MySQL / Dockerを使用
 
 ## 2.今回のファイル構成
+```
 Dockertest/
 |
 |---Dockerfile
@@ -21,13 +22,17 @@ Dockertest/
      |
      |___zenkitest.php
 
+```
+
 ## 3.Dockerの準備
 
 ### Dockerのインストール
 
+```
 sudo yum install -y docker
 sudo systemctl start docker
 sudo systemctl enable docker
+```
 
 ### Dockerサービスの起動
 Docker compose up -d
