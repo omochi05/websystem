@@ -78,7 +78,7 @@ cd Dockertest
 web   → nginx
 php   → PHP-FPM
 mysql → MySQL
-の3サービスを書く
+の3サービスを定義する
 
 ファイルの作成
 ```bash
@@ -146,8 +146,7 @@ CREATE TABLE `bbs_entries` (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `body` TEXT NOT NULL,
     `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP
-)
-;
+);
 ```
 画像ファイル名を保存するカラムを追加
 ```sql
@@ -166,12 +165,15 @@ exit
 http://EC2のパブリックIP/zenkitest.php
 ```
 実際に
-```text
 テキストだけ投稿する
 IDが表示されるか見る
 投稿日時が表示されるか見る
 画像付きで投稿する
 画像が表示されるか見る
 ページを更新して投稿が残っているか見る
-```
 か確認する
+
+## 再構築確認
+新しいAmazon Linuxインスタンスを作成し、本手順書の手順に沿って再構築する。
+
+再構築後、「12.動作確認」と同じ項目を確認する。
