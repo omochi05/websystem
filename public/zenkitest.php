@@ -10,7 +10,7 @@ if (isset($_POST['body'])) {
     if (preg_match('/^image\//', mime_content_type($_FILES['image']['tmp_name'])) !== 1) {
       // アップロードされたものが画像ではなかった場合処理を強制的に終了
       header("HTTP/1.1 302 Found");
-      header("Location: ./bbsimagetest.php");
+      header("Location: ./zenkitest.php");
       return;
     }
 
@@ -33,7 +33,7 @@ if (isset($_POST['body'])) {
   // 処理が終わったらリダイレクトする
   // リダイレクトしないと，リロード時にまた同じ内容でPOSTすることになる
   header("HTTP/1.1 302 Found");
-  header("Location: ./bbsimagetest.php");
+  header("Location: ./zenkitest.php");
   return;
 }
 
@@ -43,7 +43,7 @@ $select_sth->execute();
 ?>
 
 <!-- フォームのPOST先はこのファイル自身にする -->
-<form method="POST" action="./bbsimagetest.php" enctype="multipart/form-data">
+<form method="POST" action="./zenkitest.php" enctype="multipart/form-data">
   <textarea name="body" required></textarea>
   <div style="margin: 1em 0;">
     <input type="file" accept="image/*" name="image" id="imageInput">
